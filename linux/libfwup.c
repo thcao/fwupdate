@@ -1206,7 +1206,7 @@ set_up_boot_next(void)
 	char *shim_fs_path = NULL;
 	char *fwup_fs_path = NULL;
 	char *fwup_esp_path = NULL;
-	int use_fwup_path = 0;
+	int use_fwup_path = 1;
 
 	char *label = NULL;
 
@@ -1219,9 +1219,6 @@ set_up_boot_next(void)
 		efi_error("could not find paths for shim and fwup");
                 goto out;
 	}
-
-	if (!shim_fs_path)
-		use_fwup_path = 1;
 
 	sz = efi_generate_file_device_path(dp_buf, dp_size, use_fwup_path
 							    ? fwup_fs_path
