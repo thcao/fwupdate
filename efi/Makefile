@@ -60,6 +60,7 @@ ifeq ($(ARCH),aarch64)
 	CCLDFLAGS += -Wl,--defsym=EFI_SUBSYSTEM=0xa
 	BUILDFLAGS += -ffreestanding -I$(shell $(CC) -print-file-name=include)
 	FWUP = fwupaa64
+	EFILIBDIR = /usr/lib64/gnuefi/
 endif
 
 ifeq ($(ARCH),arm)
@@ -112,7 +113,7 @@ endif
 %.so : %.o
 	$(CC) $(CCLDFLAGS) -o $@ $^ -lefi -lgnuefi \
 		$(LIBGCC) \
-		-T elf_$(ARCH)_efi.lds
+		-T $(EFILIBDIR)elf_$(ARCH)_efi.lds
 
 %.o : %.c
 	$(CC) $(BUILDFLAGS) -c -o $@ $^
